@@ -13,7 +13,7 @@ Frameworks: TensorFlow, Keras
 Tools: OpenCV, NumPy, Pandas  
 
 ## System Architecture
-Architecture
+Architecture - architecture/Architecture.png
 
 ## Key Features
 - Automated ROP detection

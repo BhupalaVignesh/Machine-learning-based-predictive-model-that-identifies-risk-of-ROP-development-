@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title>Prediction History</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f5f7fa;
+text-align:center;
+}
+
+table{
+margin:auto;
+border-collapse:collapse;
+width:80%;
+}
+
+th, td{
+border:1px solid #ddd;
+padding:10px;
+}
+
+th{
+background:#007BFF;
+color:white;
+}
+
+button{
+background:#007BFF;
+color:white;
+padding:5px 10px;
+border:none;
+border-radius:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Prediction History</h1>
+
+<table>
+
+<tr>
+<th>Image</th>
+<th>Prediction</th>
+<th>Confidence</th>
+<th>Date</th>
+<th>Download Report</th>
+</tr>
+
+{% for row in history %}
+
+<tr>
+<td>{{row[0]}}</td>
+<td>{{row[1]}}</td>
+<td>{{row[2]}}</td>
+<td>{{row[3]}}</td>
+
+<td>
+<a href="/download">
+<button>Download</button>
+</a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br><br>
+
+<a href="/">
+<button>Back</button>
+</a>
+
+</body>
+
+</html>

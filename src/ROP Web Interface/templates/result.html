@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title>Prediction Result</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #dbeafe, #f0f9ff, #e0f2fe);
+}
+
+.container {
+    background: white;
+    padding: 40px;
+    margin: 50px auto;
+    width: 500px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+h2 {
+    color: #1d4ed8;
+}
+/* Prediction Colors */
+.prediction-badge {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 18px;
+    display: inline-block;
+}
+
+/* ROP */
+.rop {
+    background-color: #fee2e2;
+    color: red;
+}
+
+/* NON-ROP */
+.non-rop {
+    background-color: #dbeafe;
+    color: blue;
+}
+
+img {
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1e40af;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1 style="text-align:center; color:#1e3a8a;">
+    👁️ AI-Based ROP Detection System
+</h1>
+
+<div class="container">
+
+<h1>Prediction Result</h1>
+
+<h2>
+    <span class="prediction-badge {{prediction|lower}}">
+        {{prediction}}
+    </span>
+</h2>
+
+<h3>Confidence: {{confidence}}%</h3>
+
+<h3>Uploaded Image</h3>
+<img src="{{ image }}" width="250"
+style="border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+
+<br>
+
+{% if gradcam %}
+    <h3>Grad-CAM Visualization</h3>
+    <img src="{{ gradcam }}" width="250">
+{% endif %}
+{% if prediction == "Invalid Image" %}
+    <p style="color:red;">Grad-CAM is not available for invalid images.</p>
+{% endif %}
+<div style="text-align:center; margin-top:10px;">
+    <button onclick="toggleExplanation()">🔍 View Explanation</button>
+</div>
+
+<div id="explanationBox" style="
+    display:none;
+    margin-top:20px;
+    text-align:left;
+    background:#f9fafb;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.05);
+">
+
+    <h3>📌 Retinal Image Analysis</h3>
+    <p>{{ explanation }}</p>
+
+    {% if prediction != "Invalid Image" %}
+    <h3>🔥 Grad-CAM Explanation</h3>
+    <p>
+    The heatmap highlights important regions used for prediction.
+    <br><br>
+    - Red/Yellow → High importance<br>
+    - Blue → Less importance
+    </p>
+{% endif %}
+</div>
+<br><br>
+
+<a href="/download">
+<button>Download Report</button>
+</a>
+
+<br><br>
+
+<a href="/">Upload Another Image</a>
+
+</div>
+
+<script>
+function toggleExplanation() {
+    var box = document.getElementById("explanationBox");
+
+    if (box.style.display === "none") {
+        box.style.display = "block";
+        box.style.opacity = "0";
+        setTimeout(() => {
+            box.style.opacity = "1";
+        }, 100);
+    } else {
+        box.style.display = "none";
+    }
+}
+</script>
+</body>
+
+</html>
+
+<div style="text-align:center;">
+    <a href="/history">
+        <button>View History</button>
+    </a>
+</div>
